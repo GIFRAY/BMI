@@ -14,7 +14,7 @@ namespace BMI
         
     {
         double mass, lenght, BMI;
-        string mass_str, lenght_str, lenght_rep;
+        string lenght_str, lenght_rep, mass_rep;
         public Form1()
         {
             InitializeComponent();
@@ -33,12 +33,12 @@ namespace BMI
             lenght_str = textBox2.Text;
             lenght_rep = lenght_str.Replace(".", ",");
 
-            lenght = Convert.ToDouble(lenght_rep);
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-           mass = Double.Parse(textBox1.Text);
+           
            
         }
 
@@ -59,6 +59,11 @@ namespace BMI
 
         }
 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("16 и менее -> выраженный дефицит массы тела \n16 - 18,5 -> недостаточная масса тела(дефицит) \n18,5 - 24 -> нормальная масса тела \n25 - 30 -> избыточная масса тела(предожирение) \n30 - 35 -> ожирение I степени \n35 - 40 -> ожирение II степени \n40 и более -> Ожирение III степени");
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
@@ -71,12 +76,83 @@ namespace BMI
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            mass_rep = textBox1.Text;
+            if (Double.TryParse(mass_rep, out mass))
+            {
+                if (Double.TryParse(lenght_rep, out lenght))
+                {
+                }
+                else
+                {
+                    MessageBox.Show("Введите число в поле 'Рост'!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите число в поле 'Масса' !");
+            }   
+            
+
+            
+           //вывод ->
             BMI = (mass / (lenght * lenght));
             textBox3.Text = BMI.ToString();
-        }
-     private void button2_Click_1(object sender, EventArgs e)
-        {
-            MessageBox.Show("16 и менее -> выраженный дефицит массы тела \n16 - 18,5 -> недостаточная масса тела(дефицит) \n18,5 - 24 -> нормальная масса тела \n25 - 30 -> избыточная масса тела(предожирение) \n30 - 35 -> ожирение I степени \n35 - 40 -> ожирение II степени \n40 и более -> Ожирение III степени");
+
+          
+            
+            
+            
+            
+            if (BMI > 40)
+            {
+                label4.Text = "Ожирение III степени";
+            }
+            else
+            {
+                if (BMI > 35)
+                {
+                    label4.Text = "Ожирение II степени";
+                }
+                else
+                {
+                    if (BMI > 30)
+                    {
+                        label4.Text = "Ожирение I степени";
+                    }
+                    else
+                    {
+                        if (BMI > 24)
+                        {
+                            label4.Text = "Избыточная масса тела (предожирение)";
+                        }
+                        else
+                        {
+                            if (BMI > 18.5)
+                            {
+                                label4.Text = "Нормальная масса тела";
+                            }
+
+
+                            else
+                            {
+                                if (BMI > 16)
+                                {
+                                    label4.Text = "Недостаточная масса тела (дефицит)";
+                                }
+                                else
+
+                                {
+                                    label4.Text = "Выраженный дефицит массы тела";
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
         }
     }
 }
+                            
+    
+
